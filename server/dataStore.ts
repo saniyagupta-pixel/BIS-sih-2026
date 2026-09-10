@@ -2,7 +2,13 @@ import fs from 'fs';
 import path from 'path';
 import { Standard, Certification, Relationship, SampleTender, EvaluationQuery } from '../src/types';
 
-const dataDir = path.resolve(__dirname, '../data');
+let dataDir = path.resolve(process.cwd(), 'data');
+if (!fs.existsSync(dataDir)) {
+  dataDir = path.resolve(__dirname, 'data');
+  if (!fs.existsSync(dataDir)) {
+    dataDir = path.resolve(__dirname, '../data');
+  }
+}
 
 export function loadStandards(): Standard[] {
   const filePath = path.join(dataDir, 'standards', 'standards.json');
