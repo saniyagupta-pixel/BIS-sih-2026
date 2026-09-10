@@ -1,0 +1,6 @@
+{
+  "name": "AI Procurement Standards Assistant",
+  "description": "AI-Powered Recommendation Engine for Identifying Applicable Indian Standards (BIS) for Procurement Specifications",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

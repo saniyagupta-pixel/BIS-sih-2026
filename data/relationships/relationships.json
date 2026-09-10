@@ -1,0 +1,163 @@
+[
+  {
+    "sourceStandardId": "is-10322-5-3",
+    "targetStandardId": "is-15885-2-13",
+    "relationshipType": "SAFETY_STANDARD",
+    "description": "IS 10322 (Part 5/Sec 3) mandates that electronic LED drivers used within street light luminaires comply with electrical safety and surge withstand requirements of IS 15885 (Part 2/Sec 13).",
+    "source": "BIS IS 10322 (Part 5/Sec 3):2012 Clause 5.3"
+  },
+  {
+    "sourceStandardId": "is-10322-5-3",
+    "targetStandardId": "is-16103-1",
+    "relationshipType": "NORMATIVE_REFERENCE",
+    "description": "IS 10322 (Part 5/Sec 3) normatively references IS 16103 (Part 1) for safety, creepage distance, and photobiological evaluation of LED modules integrated into luminaires.",
+    "source": "BIS IS 10322 (Part 5/Sec 3):2012 Section 2 Normative References"
+  },
+  {
+    "sourceStandardId": "is-10322-5-3",
+    "targetStandardId": "is-16102-2",
+    "relationshipType": "TEST_METHOD",
+    "description": "Luminous efficacy, color rendering index (CRI), and photometric performance of lamps used in luminaires are tested per test methods in IS 16102 (Part 2).",
+    "source": "BIS IS 10322 (Part 5/Sec 3):2012 Annex B"
+  },
+  {
+    "sourceStandardId": "is-10322-5-3",
+    "targetStandardId": "is-3043",
+    "relationshipType": "INSTALLATION_STANDARD",
+    "description": "Street lighting poles, distribution pillars, and luminaires must be effectively earthed according to IS 3043 Code of Practice for Earthing.",
+    "source": "Central Public Works Department (CPWD) Electrical Specifications 2023 & IS 10322"
+  },
+  {
+    "sourceStandardId": "is-16102-1",
+    "targetStandardId": "is-16102-2",
+    "relationshipType": "TEST_METHOD",
+    "description": "IS 16102 Part 2 specifies the performance test methods and photometric measurements corresponding to the safety baselines established in Part 1.",
+    "source": "BIS IS 16102 (Part 1):2012 Foreword"
+  },
+  {
+    "sourceStandardId": "is-16102-1",
+    "targetStandardId": "is-15885-2-13",
+    "relationshipType": "SAFETY_STANDARD",
+    "description": "Integral controlgear within self-ballasted lamps is evaluated against internal circuit safety criteria per IS 15885 (Part 2/Sec 13).",
+    "source": "BIS IS 16102 (Part 1):2012 Clause 7"
+  },
+  {
+    "sourceStandardId": "is-2925",
+    "targetStandardId": "is-3521",
+    "relationshipType": "RELATED_TO",
+    "description": "Industrial safety helmets (IS 2925) and safety harnesses (IS 3521) form the complementary personal fall and impact protection package for work-at-height operations.",
+    "source": "Directorate General of Mines Safety (DGMS) & CPWD Safety Code"
+  },
+  {
+    "sourceStandardId": "is-2925",
+    "targetStandardId": "is-15298-2",
+    "relationshipType": "RELATED_TO",
+    "description": "Both IS 2925 and IS 15298 (Part 2) are core statutory PPE components mandated under Ministry of Commerce Quality Control Orders for construction and industrial sites.",
+    "source": "DPIIT Personal Protective Equipment Technical Regulations"
+  },
+  {
+    "sourceStandardId": "is-3521",
+    "targetStandardId": "is-15298-2",
+    "relationshipType": "RELATED_TO",
+    "description": "Safety harnesses and protective footwear are coordinated safety equipment required in structural erection tenders to protect against falls and stepping on sharp objects.",
+    "source": "CPWD Safety Manual for Construction Tenders"
+  },
+  {
+    "sourceStandardId": "is-2925",
+    "targetStandardId": "is-9473",
+    "relationshipType": "RELATED_TO",
+    "description": "Respiratory protection half masks (IS 9473) and safety helmets (IS 2925) are co-procured for tunneling, quarrying, and demolition contracts.",
+    "source": "Factories Act 1948 & National Building Code (NBC) 2016 Part 7"
+  },
+  {
+    "sourceStandardId": "is-694",
+    "targetStandardId": "is-3043",
+    "relationshipType": "INSTALLATION_STANDARD",
+    "description": "PVC building wire circuits must terminate into dedicated protective earth continuity conductors installed in compliance with IS 3043.",
+    "source": "National Electrical Code of India (NEC) 2023 & IS 694"
+  },
+  {
+    "sourceStandardId": "is-694",
+    "targetStandardId": "is-iec-60898-1",
+    "relationshipType": "NORMATIVE_REFERENCE",
+    "description": "Current carrying capacity and thermal withstand of IS 694 cables dictate the overcurrent trip characteristics of protecting MCBs (IS/IEC 60898-1).",
+    "source": "Central Electricity Authority (CEA) Safety Regulations 2010"
+  },
+  {
+    "sourceStandardId": "is-iec-60898-1",
+    "targetStandardId": "is-12640-1",
+    "relationshipType": "SAFETY_STANDARD",
+    "description": "MCBs (IS/IEC 60898-1) provide short-circuit backup protection to RCCBs (IS 12640 Part 1) in consumer units and distribution boards.",
+    "source": "BIS IS 12640 (Part 1):2016 Clause 9.10"
+  },
+  {
+    "sourceStandardId": "is-12640-1",
+    "targetStandardId": "is-3043",
+    "relationshipType": "INSTALLATION_STANDARD",
+    "description": "Residual current devices rely on compliant earthing loop impedance (IS 3043) to safely clear earth leakage faults within 300 ms.",
+    "source": "Central Electricity Authority (Measures Relating to Safety and Electric Supply) Regulations"
+  },
+  {
+    "sourceStandardId": "is-12701",
+    "targetStandardId": "is-4985",
+    "relationshipType": "RELATED_TO",
+    "description": "Rotomoulded water storage tanks (IS 12701) connect directly to uPVC potable water inlet and distribution pipe networks (IS 4985).",
+    "source": "National Building Code of India (NBC) 2016 Part 9 Plumbing Services"
+  },
+  {
+    "sourceStandardId": "is-12701",
+    "targetStandardId": "is-10500",
+    "relationshipType": "SAFETY_STANDARD",
+    "description": "Polyethylene raw materials for IS 12701 tanks must preserve drinking water potable quality without leaching contaminants prohibited under IS 10500.",
+    "source": "BIS IS 12701:1996 Clause 4.1"
+  },
+  {
+    "sourceStandardId": "is-4985",
+    "targetStandardId": "is-10500",
+    "relationshipType": "SAFETY_STANDARD",
+    "description": "uPVC water pipes must satisfy non-toxicity extraction limits (lead, cadmium, mercury) to prevent deterioration of potable water certified to IS 10500.",
+    "source": "BIS IS 4985:2021 Clause 10 Toxic Substance Extraction"
+  },
+  {
+    "sourceStandardId": "is-1536",
+    "targetStandardId": "is-10500",
+    "relationshipType": "SAFETY_STANDARD",
+    "description": "Centrifugally cast iron water pressure mains conveying water to treatment plants must satisfy lining non-toxicity to preserve IS 10500 standards.",
+    "source": "CPHEEO Manual on Water Supply and Treatment"
+  },
+  {
+    "sourceStandardId": "is-456",
+    "targetStandardId": "is-1786",
+    "relationshipType": "MATERIAL_STANDARD",
+    "description": "IS 456 Plain and Reinforced Concrete code normatively mandates that steel reinforcement bars conform to IS 1786 for yield strength and ductility calculations.",
+    "source": "BIS IS 456:2000 Clause 5.6 Reinforcement"
+  },
+  {
+    "sourceStandardId": "is-456",
+    "targetStandardId": "is-8112",
+    "relationshipType": "MATERIAL_STANDARD",
+    "description": "IS 456 specifies 43 Grade Ordinary Portland Cement conforming to IS 8112 as an authorized binder for structural concrete grades.",
+    "source": "BIS IS 456:2000 Clause 5.1 Cement"
+  },
+  {
+    "sourceStandardId": "is-456",
+    "targetStandardId": "is-12269",
+    "relationshipType": "MATERIAL_STANDARD",
+    "description": "IS 456 specifies 53 Grade Ordinary Portland Cement conforming to IS 12269 for high strength concrete mixes, pre-stressed elements, and rapid construction.",
+    "source": "BIS IS 456:2000 Clause 5.1 Cement"
+  },
+  {
+    "sourceStandardId": "is-456",
+    "targetStandardId": "is-2925",
+    "relationshipType": "SAFETY_STANDARD",
+    "description": "Workers engaged in structural concrete casting, formwork strike, and reinforcement fixing under IS 456 must wear protective helmets per IS 2925.",
+    "source": "IS 456:2000 Clause 14 & NBC 2016 Part 7 Construction Safety"
+  },
+  {
+    "sourceStandardId": "is-8112",
+    "targetStandardId": "is-12269",
+    "relationshipType": "RELATED_TO",
+    "description": "IS 8112 (43 Grade) and IS 12269 (53 Grade) are the twin companion specifications for Ordinary Portland Cement differing in compressive strength development.",
+    "source": "BIS Cement Sectional Committee CED 02"
+  }
+]

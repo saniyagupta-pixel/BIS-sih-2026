@@ -1,0 +1,37 @@
+[
+  {
+    "id": "sample-tender-1",
+    "title": "Municipal LED Street Lighting Luminaires",
+    "category": "Lighting",
+    "shortDescription": "Procurement of outdoor LED luminaires for municipal smart road illumination",
+    "text": "Procurement of LED street lighting luminaires for municipal roads and urban thoroughfares. The equipment must be suitable for outdoor use under tropical climatic conditions with high ambient temperatures and dusty environments. The luminaires should incorporate electronic drivers with surge withstand capability, optical compartments with high ingress protection (minimum IP65/IP66), high luminous efficacy, and provide compliance with applicable electrical safety, photobiological safety, and earthing regulations."
+  },
+  {
+    "id": "sample-tender-2",
+    "title": "Personal Protective Equipment (PPE) for Metro Rail Construction",
+    "category": "Industrial Safety",
+    "shortDescription": "Safety helmets, full-body fall arrest harnesses, and steel-toe safety footwear for civil workers",
+    "text": "Tender for supply of personal protective equipment (PPE) for workers engaged in elevated viaduct and underground station construction. Items required include high-impact industrial safety helmets with dielectric resistance and chin straps, full-body safety harnesses with shock-absorbing lanyards for working at height, and heavy-duty safety footwear with steel toecaps resisting 200 Joules impact and anti-slip outsoles."
+  },
+  {
+    "id": "sample-tender-3",
+    "title": "Electrical Wiring, Protection Switchgear & Earthing for Hospital Complex",
+    "category": "Electrical",
+    "shortDescription": "PVC insulated copper building wires, MCBs, RCCBs for earth leakage, and earthing installation",
+    "text": "Procurement of electrical distribution equipment for a new government district hospital building. Requirements include flame-retardant (FR/FRLS) PVC insulated copper conductor cables for sub-main and branch circuits, miniature circuit breakers (MCBs) with minimum 10 kA breaking capacity for overcurrent and short-circuit protection, residual current operated circuit breakers (RCCBs) with 30 mA tripping sensitivity for life-safety electric shock prevention, and copper/GI earthing electrode materials."
+  },
+  {
+    "id": "sample-tender-4",
+    "title": "Potable Water Overhead Storage Tanks & Distribution Pipelines",
+    "category": "Water & Plumbing",
+    "shortDescription": "UV-stabilized rotomoulded polyethylene water tanks and lead-free uPVC potable pipes",
+    "text": "Supply and installation of potable drinking water infrastructure for a community housing scheme under the public health engineering department. The procurement includes rotational-moulded polyethylene overhead water storage tanks of 1 000 L to 5 000 L capacity made from food-grade virgin material with UV stabilization for outdoor terrace exposure, and unplasticized PVC (uPVC) pressure pipes for domestic drinking water distribution free from lead and toxic leaching."
+  },
+  {
+    "id": "sample-tender-5",
+    "title": "Structural Concrete Materials: OPC Cement & TMT Reinforcement Steel",
+    "category": "Construction & Materials",
+    "shortDescription": "Grade 53/43 Ordinary Portland Cement and Fe 500D TMT rebar for RCC bridge piers",
+    "text": "Procurement of structural materials for cast-in-situ reinforced concrete works for highway bridge piers and box culverts. Specifications require high-strength Thermo-Mechanically Treated (TMT) deformed steel rebars conforming to Grade Fe 500D with high elongation for seismic resilience and controlled carbon equivalent for weldability, together with Ordinary Portland Cement (OPC 53 Grade or 43 Grade) for high-strength concrete mix designs."
+  }
+]

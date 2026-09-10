@@ -1,0 +1,174 @@
+[
+  {
+    "certificationId": "isi-mark-scheme-1",
+    "name": "BIS Product Certification Scheme (Scheme I - ISI Mark)",
+    "authority": "Bureau of Indian Standards (BIS)",
+    "description": "The third-party product certification scheme operated by BIS under Scheme I of Schedule II of the Bureau of Indian Standards (Conformity Assessment) Regulations, 2018. Confers the right to use the prestigious Standard Mark (ISI Mark) on manufactured products complying with relevant Indian Standards.",
+    "schemeType": "Conformity Assessment Scheme I (Product Certification)",
+    "applicableProducts": [
+      "Safety Helmets (IS 2925)",
+      "Safety Harnesses (IS 3521)",
+      "Safety Footwear (IS 15298 Part 2)",
+      "Building Cables (IS 694)",
+      "uPVC Pipes (IS 4985)",
+      "Rotomoulded Water Tanks (IS 12701)",
+      "TMT Steel Bars (IS 1786)",
+      "Cement (IS 8112, IS 12269)"
+    ],
+    "applicableCategories": ["Industrial Safety", "Electrical", "Water & Plumbing", "Construction & Materials"],
+    "applicabilityStatus": "Potentially Applicable",
+    "requirements": [
+      "Factory audit of manufacturing infrastructure and quality control facilities",
+      "In-house testing laboratory equipped per BIS Scheme of Testing and Inspection (STI)",
+      "Independent sample drawing and third-party laboratory verification by BIS-recognized lab",
+      "Surveillance inspections and continuous product quality conformity"
+    ],
+    "relatedStandards": ["is-2925", "is-3521", "is-15298-2", "is-694", "is-12701", "is-4985", "is-1786", "is-8112", "is-12269"],
+    "source": {
+      "sourceName": "Bureau of Indian Standards (BIS) Portal",
+      "sourceType": "Official Regulatory Scheme",
+      "sourceUrl": "https://www.bis.gov.in/product-certification/",
+      "lastVerified": "2024-11-01"
+    },
+    "lastVerified": "2024-11-01"
+  },
+  {
+    "certificationId": "crs-scheme-2",
+    "name": "Compulsory Registration Scheme (CRS - Scheme II)",
+    "authority": "Ministry of Electronics and Information Technology (MeitY) & BIS",
+    "description": "Registration scheme operated under Scheme II of Schedule II of BIS (Conformity Assessment) Regulations, 2018. Mandatory for notified electronic, electrical, and lighting products. Manufacturers obtain registration based on Self-Declaration of Conformity (SDoC) after testing in BIS-approved labs.",
+    "schemeType": "Conformity Assessment Scheme II (Self-Declaration of Conformity)",
+    "applicableProducts": [
+      "Self-Ballasted LED Lamps (IS 16102 Part 1)",
+      "Fixed General Purpose LED Luminaires and Street Lights (IS 10322 Part 5 Sec 3)",
+      "Electronic Controlgear for LED Modules / LED Drivers (IS 15885 Part 2 Sec 13)",
+      "LED Modules for General Lighting (IS 16103 Part 1)"
+    ],
+    "applicableCategories": ["Lighting", "Electronics & Electrical"],
+    "applicabilityStatus": "Potentially Applicable",
+    "requirements": [
+      "Product testing in BIS-recognized testing laboratory in India",
+      "Submission of complete test reports conforming to specified Indian Safety Standards",
+      "Affixing of BIS Standard Mark with unique R-number on product and packaging",
+      "Mandatory renewal and market surveillance sample picking"
+    ],
+    "relatedStandards": ["is-10322-5-3", "is-16102-1", "is-15885-2-13", "is-16103-1"],
+    "source": {
+      "sourceName": "BIS Compulsory Registration Portal (CRS)",
+      "sourceType": "Official Regulatory Scheme",
+      "sourceUrl": "https://www.crsbis.in/BIS/",
+      "lastVerified": "2024-10-20"
+    },
+    "lastVerified": "2024-10-20"
+  },
+  {
+    "certificationId": "qco-lighting",
+    "name": "Electrical and Lighting Quality Control Orders (QCO)",
+    "authority": "Department for Promotion of Industry and Internal Trade (DPIIT) / Ministry of Power",
+    "description": "Statutory orders issued under Section 16 of the BIS Act, 2016, making compliance to specific Indian Standards and bearing of the Standard Mark mandatory for manufacture, import, sale, and public procurement of lighting and electrical products.",
+    "schemeType": "Statutory Quality Control Order (Mandatory Notification)",
+    "applicableProducts": [
+      "Road and Street Lighting Luminaires (IS 10322 Part 5 Sec 3)",
+      "LED Controlgear Drivers (IS 15885 Part 2 Sec 13)",
+      "General Service LED Lamps (IS 16102 Part 1)"
+    ],
+    "applicableCategories": ["Lighting", "Electrical"],
+    "applicabilityStatus": "Verify Official Requirement",
+    "requirements": [
+      "Valid BIS License or Registration before supply under government tenders",
+      "Traceable manufacturer R-number or CML license number marked on luminaire housing",
+      "Public procurement tenders require compliance proof as technical qualifying criteria"
+    ],
+    "relatedStandards": ["is-10322-5-3", "is-16102-1", "is-15885-2-13"],
+    "source": {
+      "sourceName": "DPIIT Technical Regulations / Gazette of India",
+      "sourceType": "Official Gazette Notification",
+      "sourceUrl": "https://dpiit.gov.in/technical-regulations-and-quality-control-orders",
+      "lastVerified": "2024-11-10"
+    },
+    "lastVerified": "2024-11-10"
+  },
+  {
+    "certificationId": "qco-ppe",
+    "name": "Personal Protective Equipment (PPE) Quality Control Order",
+    "authority": "Ministry of Commerce and Industry / DPIIT",
+    "description": "Statutory Quality Control Order mandating that safety footwear, industrial safety helmets, and fall protection harnesses comply with corresponding Indian Standards and bear the ISI Mark under BIS Product Certification Scheme I.",
+    "schemeType": "Statutory Quality Control Order (PPE Safety)",
+    "applicableProducts": [
+      "Industrial Safety Helmets (IS 2925)",
+      "Industrial Safety Belts and Harnesses (IS 3521)",
+      "Safety Footwear (IS 15298 Part 2)"
+    ],
+    "applicableCategories": ["Industrial Safety"],
+    "applicabilityStatus": "Verify Official Requirement",
+    "requirements": [
+      "Prohibition of manufacture, import, or supply without BIS ISI Mark",
+      "Periodic lot testing for shock absorption, drop test, and dielectric strength",
+      "Batch inspection certificates submitted with procurement consignments"
+    ],
+    "relatedStandards": ["is-2925", "is-3521", "is-15298-2"],
+    "source": {
+      "sourceName": "DPIIT Footwear and Protective Equipment Orders",
+      "sourceType": "Official Gazette Notification",
+      "sourceUrl": "https://dpiit.gov.in",
+      "lastVerified": "2024-10-15"
+    },
+    "lastVerified": "2024-10-15"
+  },
+  {
+    "certificationId": "bee-star-label",
+    "name": "BEE Standards & Labeling Program (Star Rating)",
+    "authority": "Bureau of Energy Efficiency (BEE), Ministry of Power",
+    "description": "Energy efficiency rating scheme providing energy performance grading (1 to 5 Stars) based on testing aligned with BIS standards (such as IS 16102 Part 2) to reduce energy consumption in lighting and appliances.",
+    "schemeType": "Energy Efficiency Voluntary & Mandatory Scheme",
+    "applicableProducts": [
+      "LED Lamps (IS 16102 Part 2)",
+      "Outdoor LED Luminaires (IS 10322 Part 5 Sec 3)",
+      "Distribution Transformers"
+    ],
+    "applicableCategories": ["Lighting", "Electrical"],
+    "applicabilityStatus": "Potentially Applicable",
+    "requirements": [
+      "Testing of luminous efficacy (lm/W) in NABL/BEE accredited photometric laboratory",
+      "Filing of registration with BEE portal and affixing of Star Rating Label",
+      "Specified minimum efficiency thresholds mandated in public smart city and municipal street lighting tenders"
+    ],
+    "relatedStandards": ["is-16102-2", "is-10322-5-3"],
+    "source": {
+      "sourceName": "Bureau of Energy Efficiency (BEE) India",
+      "sourceType": "Official Regulatory Scheme",
+      "sourceUrl": "https://www.beestarlabel.com",
+      "lastVerified": "2024-10-01"
+    },
+    "lastVerified": "2024-10-01"
+  },
+  {
+    "certificationId": "bis-sti",
+    "name": "Scheme of Testing and Inspection (STI)",
+    "authority": "Bureau of Indian Standards (BIS)",
+    "description": "Prescribed factory internal quality assurance document issued by BIS for every licensed standard. Outlines the precise testing schedule, sampling frequencies, records maintenance, and rejection criteria that licensees must adhere to maintain the ISI Mark.",
+    "schemeType": "Internal Factory Quality Assurance Framework",
+    "applicableProducts": [
+      "PVC Cables (IS 694)",
+      "MCBs & RCCBs (IS/IEC 60898-1, IS 12640-1)",
+      "uPVC Pipes (IS 4985)",
+      "Reinforcement Steel (IS 1786)",
+      "Portland Cement (IS 8112, IS 12269)"
+    ],
+    "applicableCategories": ["Electrical", "Water & Plumbing", "Construction & Materials"],
+    "applicabilityStatus": "Applicable",
+    "requirements": [
+      "Continuous logging of routine and acceptance test results per STI schedule",
+      "Calibrated measuring apparatus and valid calibration certificates",
+      "Strict lot quarantine protocol upon failure of any critical safety test"
+    ],
+    "relatedStandards": ["is-694", "is-iec-60898-1", "is-12640-1", "is-4985", "is-1786", "is-8112", "is-12269"],
+    "source": {
+      "sourceName": "BIS Operational Manuals & STI Documents",
+      "sourceType": "Official BIS Quality Manual",
+      "sourceUrl": "https://www.bis.gov.in",
+      "lastVerified": "2024-09-30"
+    },
+    "lastVerified": "2024-09-30"
+  }
+]

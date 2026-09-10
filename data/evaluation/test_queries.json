@@ -1,0 +1,107 @@
+[
+  {
+    "queryId": "EVAL-01",
+    "category": "Lighting",
+    "query": "Procurement of outdoor LED street lights for municipal roads with IP66 ingress protection and integrated drivers.",
+    "expectedPrimary": "is-10322-5-3",
+    "acceptableMatches": ["is-10322-5-3", "is-15885-2-13", "is-16102-1"]
+  },
+  {
+    "queryId": "EVAL-02",
+    "category": "Lighting",
+    "query": "Supply of self-ballasted LED retrofit lamps for office indoor lighting requiring electrical shock safety.",
+    "expectedPrimary": "is-16102-1",
+    "acceptableMatches": ["is-16102-1", "is-16102-2", "is-15885-2-13"]
+  },
+  {
+    "queryId": "EVAL-03",
+    "category": "Lighting",
+    "query": "Electronic controlgear and LED driver power supplies with surge protection up to 4 kV for lighting fixtures.",
+    "expectedPrimary": "is-15885-2-13",
+    "acceptableMatches": ["is-15885-2-13", "is-10322-5-3", "is-16103-1"]
+  },
+  {
+    "queryId": "EVAL-04",
+    "category": "Industrial Safety",
+    "query": "Industrial safety helmets for construction workers with high impact shock absorption and electrical insulation.",
+    "expectedPrimary": "is-2925",
+    "acceptableMatches": ["is-2925", "is-3521", "is-15298-2"]
+  },
+  {
+    "queryId": "EVAL-05",
+    "category": "Industrial Safety",
+    "query": "Full body safety harnesses with shock absorbing lanyards for workers at height on scaffolding.",
+    "expectedPrimary": "is-3521",
+    "acceptableMatches": ["is-3521", "is-2925", "is-15298-2"]
+  },
+  {
+    "queryId": "EVAL-06",
+    "category": "Industrial Safety",
+    "query": "Protective safety footwear and boots with 200J steel toecaps and slip-resistant sole for factory work.",
+    "expectedPrimary": "is-15298-2",
+    "acceptableMatches": ["is-15298-2", "is-2925", "is-3521"]
+  },
+  {
+    "queryId": "EVAL-07",
+    "category": "Industrial Safety",
+    "query": "Particulate filtering half masks FFP2 class for workers exposed to silica dust in mining and tunneling.",
+    "expectedPrimary": "is-9473",
+    "acceptableMatches": ["is-9473", "is-2925"]
+  },
+  {
+    "queryId": "EVAL-08",
+    "category": "Electrical",
+    "query": "PVC insulated copper building wires and flexible multicore cables for 450/750V building electrification.",
+    "expectedPrimary": "is-694",
+    "acceptableMatches": ["is-694", "is-3043", "is-iec-60898-1"]
+  },
+  {
+    "queryId": "EVAL-09",
+    "category": "Electrical",
+    "query": "Miniature circuit breakers MCB 10kA breaking capacity for distribution board overcurrent protection.",
+    "expectedPrimary": "is-iec-60898-1",
+    "acceptableMatches": ["is-iec-60898-1", "is-12640-1", "is-694"]
+  },
+  {
+    "queryId": "EVAL-10",
+    "category": "Electrical",
+    "query": "Residual current circuit breakers RCCB 30mA earth leakage protection against electric shock.",
+    "expectedPrimary": "is-12640-1",
+    "acceptableMatches": ["is-12640-1", "is-iec-60898-1", "is-3043"]
+  },
+  {
+    "queryId": "EVAL-11",
+    "category": "Electrical",
+    "query": "Earthing electrode systems pipe and plate grounding code of practice for transformer substation.",
+    "expectedPrimary": "is-3043",
+    "acceptableMatches": ["is-3043", "is-694", "is-iec-60898-1"]
+  },
+  {
+    "queryId": "EVAL-12",
+    "category": "Water & Plumbing",
+    "query": "Rotational moulded polyethylene cylindrical overhead water storage tanks UV stabilized for terrace installation.",
+    "expectedPrimary": "is-12701",
+    "acceptableMatches": ["is-12701", "is-4985", "is-10500"]
+  },
+  {
+    "queryId": "EVAL-13",
+    "category": "Water & Plumbing",
+    "query": "Unplasticized uPVC pressure pipes for potable drinking water supply lines free from heavy metal leaching.",
+    "expectedPrimary": "is-4985",
+    "acceptableMatches": ["is-4985", "is-12701", "is-10500"]
+  },
+  {
+    "queryId": "EVAL-14",
+    "category": "Construction & Materials",
+    "query": "High strength TMT deformed steel bars Fe 500D grade for reinforced concrete building structures.",
+    "expectedPrimary": "is-1786",
+    "acceptableMatches": ["is-1786", "is-456", "is-12269"]
+  },
+  {
+    "queryId": "EVAL-15",
+    "category": "Construction & Materials",
+    "query": "Ordinary Portland cement 53 Grade for pre-stressed concrete works and high strength flyovers.",
+    "expectedPrimary": "is-12269",
+    "acceptableMatches": ["is-12269", "is-8112", "is-456"]
+  }
+]
