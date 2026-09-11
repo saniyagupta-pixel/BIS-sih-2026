@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import path from 'path';
 import multer from 'multer';
-import { createServer as createViteServer } from 'vite';
+
 import { retrievalEngine } from './server/retrievalEngine';
 import { loadSampleTenders } from './server/dataStore';
 import { RecommendationResponse } from './src/types';
@@ -512,7 +512,8 @@ app.get('/api/evaluation/run', (req: Request, res: Response) => {
 // Vite Middleware Setup (Local Dev & Standard Build)
 async function setupServer() {
   if (process.env.NODE_ENV !== 'production' && process.env.VERCEL !== '1') {
-    const vite = await createViteServer({
+    const viteModule = await import('vite');
+    const vite = await viteModule.createServer({
       server: { middlewareMode: true },
       appType: 'spa',
     });
