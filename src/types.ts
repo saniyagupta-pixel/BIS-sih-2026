@@ -5,6 +5,30 @@ export interface StandardSource {
   lastVerified: string;
 }
 
+export interface ParsedStandard {
+  standardId: string;
+  standardNumber: string;
+  title: string;
+  year: number;
+  category: string;
+  scope: string;
+  description: string;
+  keywords: string[];
+  technicalRequirements: string[];
+  applications: string[];
+  normativeReferences: string[];
+  alliedStandards: string[];
+  testMethods: string[];
+  safetyStandards: string[];
+  materialStandards: string[];
+  installationStandards: string[];
+  supersedes: string | null;
+  supersededBy: string | null;
+  amendments: string[];
+  certificationIds: string[];
+  source: StandardSource;
+}
+
 export interface Standard {
   standardId: string;
   standardNumber: string;
@@ -114,23 +138,41 @@ export interface CertificationRecommendation {
 }
 
 export interface ExtractedRequirements {
-  productName: string;
+  product: string;
+  productName: string; // backwards compatibility
   category: string;
   application: string;
   environment: string;
-  keyRequirements: string[];
+  technicalRequirements?: string[];
+  safetyRequirements?: string[];
+  performanceRequirements?: string[];
+  testingRequirements?: string[];
+  materialRequirements?: string[];
+  installationRequirements?: string[];
+  requirements: string[];
+  keyRequirements: string[]; // backwards compatibility
+}
+
+export interface GroundingInfo {
+  isGrounded: boolean;
+  verifiedStandards: number;
+  unverifiedStandardsFilteredOut: number;
 }
 
 export interface RecommendationResponse {
   recommendationId: string;
   timestamp: string;
+  inputType?: 'text' | 'pdf';
+  filename?: string;
   specificationText: string;
   summary: string;
   extractedRequirements: ExtractedRequirements;
+  recommendations: PrimaryRecommendation[]; // alias for spec compliance
   primaryRecommendations: PrimaryRecommendation[];
   relatedStandards: RelatedStandardRecommendation[];
   certifications: CertificationRecommendation[];
   warnings: string[];
+  grounding: GroundingInfo;
   groundingStatus: {
     isGrounded: boolean;
     unverifiedStandardsFilteredOut: number;

@@ -104,6 +104,41 @@
       "sourceUrl": "https://www.services.bis.gov.in",
       "lastVerified": "2024-11-01"
     }
+  },{
+    "standardId": "is-10322-5-3-2026",
+    "standardNumber": "IS 10322 (Part 5/Sec 3):2026",
+    "title": "Luminaires - Part 5: Particular Requirements - Section 3: Luminaires for Road and Street Lighting",
+    "year": 2012,
+    "status": "Current",
+    "category": "Lighting",
+    "scope": "Specifies requirements for road and street lighting luminaires, for use with electrical light sources (including LED luminaires) on supply voltages not exceeding 1 000 V. Covers optical, mechanical and electrical safety requirements for outdoor road illumination.",
+    "description": "Standard governing the mechanical construction, ingress protection (IP ratings), thermal management, and electrical insulation of street lighting luminaires deployed in municipal, highway, and public lighting tenders.",
+    "keywords": ["street lighting", "road luminaires", "LED street light", "outdoor lighting", "municipal lighting", "IP65", "IP66", "optics", "highway luminaires"],
+    "technicalRequirements": [
+      "Minimum Ingress Protection IP65 for optical compartment and IP65/IP66 for gear compartment",
+      "Protection class Class I or Class II electrical insulation",
+      "Windage and mechanical impact resistance (IK08 minimum)",
+      "Creepage distances and clearances compliance per IS 10322 (Part 1)",
+      "Thermal endurance test at 45°C ambient maximum operating rating"
+    ],
+    "productCategories": ["Luminaires", "LED Street Lights", "Roadway Fixtures", "Outdoor Lighting"],
+    "applications": ["Municipal road illumination", "Highway lighting", "Public thoroughfare lighting", "Urban street lighting"],
+    "normativeReferences": ["is-15885-2-13", "is-16103-1", "is-16102-1", "is-3043"],
+    "alliedStandards": ["is-16102-2"],
+    "testMethods": ["is-16102-2"],
+    "safetyStandards": ["is-15885-2-13", "is-16103-1"],
+    "materialStandards": [],
+    "installationStandards": ["is-3043"],
+    "supersedes": "IS 10322 (Part 5/Sec 3):1987",
+    "supersededBy": null,
+    "amendments": ["Amendment No. 1 (2018) - Update to LED testing alignment", "Amendment No. 2 (2021) - Marking and energy efficiency criteria"],
+    "certificationIds": ["crs-scheme-2", "isi-mark-scheme-1", "qco-lighting"],
+    "source": {
+      "sourceName": "Bureau of Indian Standards (BIS)",
+      "sourceType": "Official BIS Catalog",
+      "sourceUrl": "https://www.services.bis.gov.in/php/BIS_2.0/bisconnect/knowyourstandards/indian_standards/isdetails/IS10322",
+      "lastVerified": "2024-11-15"
+    }
   },
   {
     "standardId": "is-15885-2-13",

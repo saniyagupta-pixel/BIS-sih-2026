@@ -10,6 +10,73 @@ if (!fs.existsSync(dataDir)) {
   }
 }
 
+import { ParsedStandard } from './pdfService';
+
+let parsedPdfStandards: ParsedStandard[] = [];
+
+export function setParsedPdfStandards(
+  standards: ParsedStandard[]
+): void {
+  parsedPdfStandards = standards;
+  console.log(
+    `[DataStore] Loaded ${parsedPdfStandards.length} PDF-derived standards`
+  );
+}
+
+export function convertParsedStandardToStandard(
+  parsed: ParsedStandard
+): Standard {
+  return {
+    standardId: parsed.standardId,
+    standardNumber: parsed.standardNumber,
+    title: parsed.title,
+    year: parsed.year,
+
+    status: 'Current',
+
+    category: parsed.category,
+    scope: parsed.scope,
+    description: parsed.description,
+
+    keywords: parsed.keywords,
+    technicalRequirements: parsed.technicalRequirements,
+
+    productCategories: [],
+    applications: parsed.applications,
+
+    normativeReferences: parsed.normativeReferences,
+    alliedStandards: parsed.alliedStandards,
+    testMethods: parsed.testMethods,
+    safetyStandards: parsed.safetyStandards,
+    materialStandards: parsed.materialStandards,
+    installationStandards: parsed.installationStandards,
+
+    supersedes: parsed.supersedes,
+    supersededBy: parsed.supersededBy,
+
+    amendments: parsed.amendments,
+    certificationIds: parsed.certificationIds,
+
+    source: parsed.source
+  };
+}
+
+export function getParsedPdfStandards(): ParsedStandard[] {
+  return parsedPdfStandards;
+}
+
+export function getAllStandards(): Standard[] {
+  const staticStandards = loadStandards();
+
+  const pdfStandards = parsedPdfStandards.map(
+    convertParsedStandardToStandard
+  );
+
+  return [
+    ...staticStandards,
+    ...pdfStandards
+  ];
+}
 export function loadStandards(): Standard[] {
   const filePath = path.join(dataDir, 'standards', 'standards.json');
   if (fs.existsSync(filePath)) {

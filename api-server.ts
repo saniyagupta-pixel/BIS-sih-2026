@@ -1,13 +1,26 @@
-import express, { Request, Response } from 'express';
+import 'dotenv/config';
+console.log(
+  'Pinecone key loaded:',
+  !!process.env.PINECONE_API_KEY
+);
+
+console.log(
+  'Pinecone index:',
+  process.env.PINECONE_INDEX
+);
+import express from 'express';
+import { Request, Response } from 'express';
 import path from 'path';
 import multer from 'multer';
 
 import { retrievalEngine } from './server/retrievalEngine';
 import { loadSampleTenders } from './server/dataStore';
 import { RecommendationResponse } from './src/types';
-import { parseTenderPdf, createSamplePdfBuffer } from './server/pdfService';
+import { parseTenderPdf, extractAndCleanTenderPdfText, createSamplePdfBuffer } from './server/pdfService';
+import { getEmbedding, normalizeVector } from './server/embeddings';
 import { getMongoStatus, persistRecommendation, persistReviewDecision, persistTenderDocument } from './server/mongoClient';
 import { getPineconeStatus, queryPineconeVector, upsertStandardsToPinecone } from './server/pineconeClient';
+import { indexPdfFolder, whereToPlacePdfs } from './server/pdfIndexer';
 
 const recommendationsStore = new Map<string, RecommendationResponse>();
 const reviewDecisions = new Map<string, { approvedIds: string[]; rejectedIds: string[]; timestamp: string }>();
@@ -22,6 +35,37 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+
+app.post('/api/test/pinecone-search', async (req, res) => {
+  try {
+    const { query } = req.body;
+
+    if (!query) {
+      return res.status(400).json({
+        success: false,
+        error: 'Query is required',
+      });
+    }
+
+    const results = await queryPineconeVector(query, 5);
+
+    res.json({
+      success: true,
+      query,
+      results,
+    });
+
+  } catch (err: any) {
+    console.error('[Test Pinecone Search Error]', err);
+
+    res.status(500).json({
+      success: false,
+      error: err?.message || String(err),
+    });
+  }
+});
+
 
 // 1. Health check
 app.get('/api/health', (req: Request, res: Response) => {
@@ -291,22 +335,54 @@ app.post('/api/system/pinecone/sync', async (req: Request, res: Response) => {
   });
 });
 
-// 12. Recommendation Analyze with Pinecone Query + MongoDB Persistence
+// 12b. Index PDFs from disk into Pinecone
+app.post('/api/system/pinecone/index-pdfs', async (req: Request, res: Response) => {
+  const folder = (req.body && req.body.folder) || undefined;
+  const result = await indexPdfFolder(folder);
+  res.json({ success: result.success, indexedFiles: result.indexedFiles, recordsIndexed: result.recordsIndexed, errors: result.errors });
+});
+
+// 12. Recommendation Analyze with Pinecone Query + MongoDB Persistence (Mode 1 - Text)
 app.post('/api/recommendations/analyze', async (req: Request, res: Response) => {
   const { specificationText } = req.body;
   if (!specificationText || typeof specificationText !== 'string' || specificationText.trim().length === 0) {
     return res.status(400).json({ error: 'Specification text is required' });
   }
 
-  // Query Pinecone vector database if configured
+  // 1. Extract requirements
+  const extractedRequirements = retrievalEngine.extractRequirements(specificationText);
+
+  // 2. Build semantic representation of the extracted requirements
+  const semanticQuery = [
+    extractedRequirements.product,
+    extractedRequirements.category,
+    extractedRequirements.application,
+    extractedRequirements.environment,
+    ...extractedRequirements.requirements,
+    specificationText.slice(0, 500),
+  ].join(' ');
+
+  // 3. SentenceTransformers 384D embedding + Pinecone query
   let pineconeMatches = null;
+  let queryEmbedding: number[] | null = null;
   try {
-    pineconeMatches = await queryPineconeVector(specificationText, 5);
+    queryEmbedding = await getEmbedding(semanticQuery);
+    if (queryEmbedding) {
+      queryEmbedding = normalizeVector(queryEmbedding);
+    }
+    pineconeMatches = await queryPineconeVector(semanticQuery, 5);
   } catch (err) {
-    console.warn('[Pinecone Query Warning] Falling back to embedded cosine vectors:', err);
+    console.warn('[Pinecone Query Warning] Falling back to local SentenceTransformers:', err);
   }
 
-  const result = retrievalEngine.analyzeSpecification(specificationText, pineconeMatches);
+  const result = await retrievalEngine.analyzeSpecificationAsync(
+    specificationText,
+    pineconeMatches,
+    queryEmbedding,
+    extractedRequirements,
+    'text'
+  );
+
   recommendationsStore.set(result.recommendationId, result);
   reviewDecisions.set(result.recommendationId, { approvedIds: [], rejectedIds: [], timestamp: new Date().toISOString() });
 
@@ -314,6 +390,82 @@ app.post('/api/recommendations/analyze', async (req: Request, res: Response) => 
   persistRecommendation(result).catch(err => console.error('[MongoDB Error] Persist recommendation:', err));
 
   res.json(result);
+});
+
+// 12b. Recommendation Analyze Tender PDF (Mode 2 - PDF Upload)
+app.post('/api/recommendations/analyze-pdf', upload.single('file'), async (req: Request, res: Response) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ error: 'No PDF file received. Please provide a valid .pdf document.' });
+    }
+
+    const isPdf = req.file.mimetype === 'application/pdf' || req.file.originalname.toLowerCase().endsWith('.pdf');
+    if (!isPdf) {
+      return res.status(400).json({ error: 'Invalid file format. Only PDF documents are supported.' });
+    }
+
+    const filename = req.file.originalname || 'tender_specification.pdf';
+    const { text, pageCount, fileSizeBytes } = await extractAndCleanTenderPdfText(req.file.buffer, filename);
+
+    if (!text || text.trim().length === 0) {
+      return res.status(400).json({ error: 'Unable to extract text from the provided PDF file.' });
+    }
+
+    // 1. Extract requirements
+    const extractedRequirements = retrievalEngine.extractRequirements(text);
+
+    // 2. Build semantic query from structured requirements & text
+    const semanticQuery = [
+      extractedRequirements.product,
+      extractedRequirements.category,
+      extractedRequirements.application,
+      extractedRequirements.environment,
+      ...extractedRequirements.requirements,
+      text.slice(0, 500),
+    ].join(' ');
+
+    // 3. SentenceTransformers 384D embedding + Pinecone query
+    let pineconeMatches = null;
+    let queryEmbedding: number[] | null = null;
+    try {
+      queryEmbedding = await getEmbedding(semanticQuery);
+      if (queryEmbedding) {
+        queryEmbedding = normalizeVector(queryEmbedding);
+      }
+      pineconeMatches = await queryPineconeVector(semanticQuery, 5);
+    } catch (err) {
+      console.warn('[Pinecone Query Warning] Falling back to local SentenceTransformers:', err);
+    }
+
+    // 4. Recommendation analysis with multi-factor reranking & grounding
+    const result = await retrievalEngine.analyzeSpecificationAsync(
+      text,
+      pineconeMatches,
+      queryEmbedding,
+      extractedRequirements,
+      'pdf',
+      filename
+    );
+
+    recommendationsStore.set(result.recommendationId, result);
+    reviewDecisions.set(result.recommendationId, { approvedIds: [], rejectedIds: [], timestamp: new Date().toISOString() });
+
+    // Persist to MongoDB if connected
+    persistRecommendation(result).catch(err => console.error('[MongoDB Error] Persist PDF recommendation:', err));
+    persistTenderDocument({
+      id: `doc-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+      filename,
+      fileSizeBytes,
+      extractedText: text,
+      uploadedAt: new Date().toISOString(),
+      pageCount,
+    }).catch(err => console.error('[MongoDB Error] PDF persistence:', err));
+
+    res.json(result);
+  } catch (err: any) {
+    console.error('[Analyze PDF Error]:', err);
+    res.status(500).json({ error: err.message || 'Failed to analyze tender PDF.' });
+  }
 });
 
 app.get('/api/recommendations/latest', (req: Request, res: Response) => {
