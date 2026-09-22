@@ -341,57 +341,106 @@ app.post('/api/system/pinecone/index-pdfs', async (req: Request, res: Response) 
   const result = await indexPdfFolder(folder);
   res.json({ success: result.success, indexedFiles: result.indexedFiles, recordsIndexed: result.recordsIndexed, errors: result.errors });
 });
-
 // 12. Recommendation Analyze with Pinecone Query + MongoDB Persistence (Mode 1 - Text)
+
 app.post('/api/recommendations/analyze', async (req: Request, res: Response) => {
-  const { specificationText } = req.body;
-  if (!specificationText || typeof specificationText !== 'string' || specificationText.trim().length === 0) {
-    return res.status(400).json({ error: 'Specification text is required' });
-  }
-
-  // 1. Extract requirements
-  const extractedRequirements = retrievalEngine.extractRequirements(specificationText);
-
-  // 2. Build semantic representation of the extracted requirements
-  const semanticQuery = [
-    extractedRequirements.product,
-    extractedRequirements.category,
-    extractedRequirements.application,
-    extractedRequirements.environment,
-    ...extractedRequirements.requirements,
-    specificationText.slice(0, 500),
-  ].join(' ');
-
-  // 3. SentenceTransformers 384D embedding + Pinecone query
-  let pineconeMatches = null;
-  let queryEmbedding: number[] | null = null;
   try {
-    queryEmbedding = await getEmbedding(semanticQuery);
-    if (queryEmbedding) {
-      queryEmbedding = normalizeVector(queryEmbedding);
+    const { specificationText } = req.body;
+
+    if (
+      !specificationText ||
+      typeof specificationText !== 'string' ||
+      specificationText.trim().length === 0
+    ) {
+      return res.status(400).json({
+        error: 'Specification text is required'
+      });
     }
-    pineconeMatches = await queryPineconeVector(semanticQuery, 5);
-  } catch (err) {
-    console.warn('[Pinecone Query Warning] Falling back to local SentenceTransformers:', err);
+
+    // 1. Extract requirements
+    const extractedRequirements =
+      retrievalEngine.extractRequirements(specificationText);
+
+    // 2. Build semantic representation of the extracted requirements
+    const semanticQuery = [
+      extractedRequirements.product,
+      extractedRequirements.category,
+      extractedRequirements.application,
+      extractedRequirements.environment,
+      ...extractedRequirements.requirements,
+      specificationText.slice(0, 500),
+    ].join(' ');
+
+    // 3. SentenceTransformers 384D embedding + Pinecone query
+    let pineconeMatches = null;
+    let queryEmbedding: number[] | null = null;
+
+    try {
+      queryEmbedding = await getEmbedding(semanticQuery);
+
+      if (queryEmbedding) {
+        queryEmbedding = normalizeVector(queryEmbedding);
+      }
+
+      pineconeMatches =
+        await queryPineconeVector(semanticQuery, 5);
+
+    } catch (err) {
+      console.warn(
+        '[Pinecone Query Warning] Falling back to local SentenceTransformers:',
+        err
+      );
+    }
+
+    // 4. Generate recommendations
+    const result =
+      await retrievalEngine.analyzeSpecificationAsync(
+        specificationText,
+        pineconeMatches,
+        queryEmbedding,
+        extractedRequirements,
+        'text'
+      );
+
+    // 5. Store recommendation
+    recommendationsStore.set(
+      result.recommendationId,
+      result
+    );
+
+    reviewDecisions.set(
+      result.recommendationId,
+      {
+        approvedIds: [],
+        rejectedIds: [],
+        timestamp: new Date().toISOString()
+      }
+    );
+
+    // 6. Persist to MongoDB if connected
+    persistRecommendation(result).catch(err =>
+      console.error(
+        '[MongoDB Error] Persist recommendation:',
+        err
+      )
+    );
+
+    res.json(result);
+
+  } catch (err: any) {
+    console.error(
+      '[Analyze Recommendation Error]:',
+      err
+    );
+
+    res.status(500).json({
+      error:
+        err?.message ||
+        String(err) ||
+        'Failed to analyze specification.'
+    });
   }
-
-  const result = await retrievalEngine.analyzeSpecificationAsync(
-    specificationText,
-    pineconeMatches,
-    queryEmbedding,
-    extractedRequirements,
-    'text'
-  );
-
-  recommendationsStore.set(result.recommendationId, result);
-  reviewDecisions.set(result.recommendationId, { approvedIds: [], rejectedIds: [], timestamp: new Date().toISOString() });
-
-  // Persist to MongoDB if connected
-  persistRecommendation(result).catch(err => console.error('[MongoDB Error] Persist recommendation:', err));
-
-  res.json(result);
 });
-
 // 12b. Recommendation Analyze Tender PDF (Mode 2 - PDF Upload)
 app.post('/api/recommendations/analyze-pdf', upload.single('file'), async (req: Request, res: Response) => {
   try {
