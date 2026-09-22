@@ -1,51 +1,8 @@
-// Use dynamic import at runtime to avoid ESM/CJS interop issues with pdf-parse
-
-async function loadPdfParse() {
-  try {
-    if (typeof (globalThis as any).AbortController === 'undefined') {
-      const acMod = await import('abort-controller').catch(() => null);
-
-      if (acMod && acMod.AbortController) {
-        (globalThis as any).AbortController = acMod.AbortController;
-      }
-    }
-  } catch {
-    // ignore polyfill failure
-  }
-
-  const mod = await import('pdf-parse').catch(() => null);
-
-  if (!mod) {
-    throw new Error('pdf-parse module could not be loaded');
-  }
-
-  if (typeof mod === 'function') {
-    return mod as any;
-  }
-
-  if (typeof (mod as any).default === 'function') {
-    return (mod as any).default as any;
-  }
-
-  if (typeof (mod as any).parseBuffer === 'function') {
-    return (mod as any).parseBuffer as any;
-  }
-
-  if (
-    (mod as any).default &&
-    typeof (mod as any).default.parseBuffer === 'function'
-  ) {
-    return (mod as any).default.parseBuffer as any;
-  }
-
-  for (const key of Object.keys(mod || {})) {
-    if (typeof (mod as any)[key] === 'function') {
-      return (mod as any)[key] as any;
-    }
-  }
-
-  throw new Error('pdfParse is not a function (unexpected module shape)');
-}
+// pdf-parse v2 API
+// Import CanvasFactory before PDFParse so the parser also works in
+// serverless environments such as Vercel.
+import { CanvasFactory } from 'pdf-parse/worker';
+import { PDFParse } from 'pdf-parse';
 
 // ==================================================
 // Parsed Standard
@@ -598,80 +555,44 @@ function parseStructuredStandards(
 export async function extractRawPdfText(
   buffer: Buffer
 ): Promise<{ text: string; pageCount: number }> {
-  let data: any = null;
-  let text = '';
+  if (!buffer || buffer.length === 0) {
+    throw new Error('PDF buffer is empty');
+  }
 
-  // 1. Try pdf-parse
+  let parser: PDFParse | null = null;
+
   try {
-    const pdfParse = await loadPdfParse();
-    data = await pdfParse(buffer);
-    text = data.text ? data.text.trim() : '';
+    parser = new PDFParse({
+      data: buffer,
+      CanvasFactory,
+    });
+
+    const result = await parser.getText();
+
+    const text = result.text ? result.text.trim() : '';
+    const pageCount = result.total || 1;
+
     return {
       text,
-      pageCount: data?.numpages || 1,
+      pageCount,
     };
-  } catch (err) {
-    const errorMessage = (err as any)?.message || String(err);
-    console.warn('[PDF Parser] pdf-parse failed, attempting pdfjs fallback:', errorMessage);
-
-    // 2. pdfjs fallback
-    const tryPaths = [
-      'pdfjs-dist/legacy/build/pdf.mjs',
-      'pdfjs-dist/legacy/build/pdf.js',
-      'pdfjs-dist/build/pdf.mjs',
-      'pdfjs-dist/build/pdf',
-      'pdfjs-dist',
-    ];
-
-    let pdfjs: any = null;
-    for (const p of tryPaths) {
+  } catch (err: any) {
+    console.error(
+      '[PDF Parser] pdf-parse failed:',
+      err?.message || err
+    );
+    throw err;
+  } finally {
+    // Release parser resources even when extraction fails.
+    if (parser) {
       try {
-        pdfjs = await import(p);
-        if (pdfjs) break;
-      } catch {
-        // Continue trying next path
+        await parser.destroy();
+      } catch (destroyError: any) {
+        console.warn(
+          '[PDF Parser] Failed to destroy parser:',
+          destroyError?.message || destroyError
+        );
       }
-    }
-
-    if (!pdfjs) {
-      console.error('[PDF Parser] Could not load pdfjs-dist from any known path');
-      throw err;
-    }
-
-    try {
-      const getDocument =
-        (pdfjs as any).getDocument ||
-        (pdfjs as any).default?.getDocument ||
-        (pdfjs as any).PDFJS?.getDocument;
-
-      if (!getDocument) {
-        throw new Error('pdfjs getDocument not found');
-      }
-
-      const pdfBytes = new Uint8Array(buffer);
-      const loadingTask = getDocument({ data: pdfBytes });
-      const pdf = await loadingTask.promise;
-      const numpages = pdf.numPages || 1;
-      let fullText = '';
-
-      for (let p = 1; p <= numpages; p++) {
-        try {
-          const page = await pdf.getPage(p);
-          const content = await page.getTextContent();
-          const strs = (content.items || []).map((it: any) => it.str || '').join(' ');
-          fullText += strs + '\n';
-        } catch (pe) {
-          console.warn('[PDF Parser] Failed to extract page', p, (pe as any)?.message || String(pe));
-        }
-      }
-
-      return {
-        text: fullText.trim(),
-        pageCount: numpages,
-      };
-    } catch (pdfjserr) {
-      console.error('[PDF Parser] pdfjs fallback also failed:', (pdfjserr as any)?.message || String(pdfjserr));
-      throw pdfjserr;
     }
   }
 }
