@@ -13,14 +13,14 @@ import { Request, Response } from 'express';
 import path from 'path';
 import multer from 'multer';
 
-import { retrievalEngine } from '../server/retrievalEngine';
-import { loadSampleTenders } from '../server/dataStore';
-import { RecommendationResponse } from '../src/types';
-import { parseTenderPdf, extractAndCleanTenderPdfText, createSamplePdfBuffer } from '../server/pdfService';
-import { getEmbedding, normalizeVector } from '../server/embeddings';
-import { getMongoStatus, persistRecommendation, persistReviewDecision, persistTenderDocument } from '../server/mongoClient';
-import { getPineconeStatus, queryPineconeVector, upsertStandardsToPinecone } from '../server/pineconeClient';
-import { indexPdfFolder, whereToPlacePdfs } from '../server/pdfIndexer';
+import { retrievalEngine } from "../server/retrievalEngine.js"
+import { loadSampleTenders } from '../server/dataStore.js';
+import { RecommendationResponse } from '../src/types.js';
+import { parseTenderPdf, extractAndCleanTenderPdfText, createSamplePdfBuffer } from '../server/pdfService.js';
+import { getEmbedding, normalizeVector } from '../server/embeddings.js';
+import { getMongoStatus, persistRecommendation, persistReviewDecision, persistTenderDocument } from '../server/mongoClient.js';
+import { getPineconeStatus, queryPineconeVector, upsertStandardsToPinecone } from '../server/pineconeClient.js';
+import { indexPdfFolder, whereToPlacePdfs } from '../server/pdfIndexer.js';
 
 const recommendationsStore = new Map<string, RecommendationResponse>();
 const reviewDecisions = new Map<string, { approvedIds: string[]; rejectedIds: string[]; timestamp: string }>();
