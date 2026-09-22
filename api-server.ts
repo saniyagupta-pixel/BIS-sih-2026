@@ -31,6 +31,36 @@ const upload = multer({
 });
 
 const app = express();
+
+// Validate required environment variables for Pinecone and embeddings
+if (!process.env.PINECONE_API_KEY) {
+  console.warn('⚠️ Missing PINECONE_API_KEY – Pinecone queries will fail');
+}
+if (!process.env.PINECONE_INDEX) {
+  console.warn('⚠️ Missing PINECONE_INDEX – Pinecone queries will fail');
+}
+if (!process.env.HF_API_KEY) {
+  console.warn('⚠️ Missing HF_API_KEY – embedding generation will fall back to local model');
+}
+
+// Auto-index PDFs into Pinecone on server start if the index appears empty
+(async () => {
+  try {
+    // Perform a lightweight Pinecone query to check if index has data
+    const testMatches = await queryPineconeVector('health check vector', 1);
+    if (!testMatches || (Array.isArray(testMatches.matches) && testMatches.matches.length === 0)) {
+      console.log('Pinecone index empty, indexing PDFs now...');
+      const result = await indexPdfFolder();
+      console.log('PDF indexing completed:', result);
+    } else {
+      console.log('Pinecone index already contains data, skipping indexing.');
+    }
+  } catch (err) {
+    console.warn('Auto-indexing error (non‑critical):', err);
+  }
+})();
+
+
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json({ limit: '50mb' }));
