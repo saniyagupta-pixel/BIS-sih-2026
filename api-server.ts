@@ -48,7 +48,7 @@ if (!process.env.HF_API_KEY) {
   try {
     // Perform a lightweight Pinecone query to check if index has data
     const testMatches = await queryPineconeVector('health check vector', 1);
-    if (!testMatches || (Array.isArray(testMatches.matches) && testMatches.matches.length === 0)) {
+    if (!testMatches || testMatches.length === 0)  {
       console.log('Pinecone index empty, indexing PDFs now...');
       const result = await indexPdfFolder();
       console.log('PDF indexing completed:', result);
