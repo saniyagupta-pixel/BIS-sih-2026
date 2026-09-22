@@ -1,18 +1,18 @@
 import fs from 'fs';
 import path from 'path';
 
-import { parseTenderPdf } from './pdfService';
-import { setParsedPdfStandards } from './dataStore';
-import { retrievalEngine } from './retrievalEngine';
+import { parseTenderPdf } from './pdfService.js';
+import { setParsedPdfStandards } from './dataStore.js';
+import { retrievalEngine } from './retrievalEngine.js';
 
 import {
   getEmbedding,
   normalizeVector
-} from './embeddings';
+} from './embeddings.js';
 
 import {
   upsertRecordsToPinecone
-} from './pineconeClient';
+} from './pineconeClient.js';
 
 const DEFAULT_PDFS_DIR = path.resolve(
   process.cwd(),

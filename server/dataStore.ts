@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { Standard, Certification, Relationship, SampleTender, EvaluationQuery } from '../src/types';
+import { Standard, Certification, Relationship, SampleTender, EvaluationQuery } from '../src/types.js';
 
 let dataDir = path.resolve(process.cwd(), 'data');
 if (!fs.existsSync(dataDir)) {
@@ -10,7 +10,7 @@ if (!fs.existsSync(dataDir)) {
   }
 }
 
-import { ParsedStandard } from './pdfService';
+import { ParsedStandard } from './pdfService.js';
 
 let parsedPdfStandards: ParsedStandard[] = [];
 

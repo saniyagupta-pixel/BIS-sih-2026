@@ -10,16 +10,16 @@ import {
   EvaluationResult,
   EvaluationQuery,
   GroundingInfo,
-} from '../src/types';
+} from '../src/types.js';
 import {
   loadStandards,
   loadCertifications,
   loadRelationships,
   loadEvaluationQueries,
   getAllStandards,
-} from './dataStore';
-import { getEmbedding, normalizeVector, cosineSimilarity } from './embeddings';
-import { generateHashEmbedding } from './pineconeClient';
+} from './dataStore.js';
+import { getEmbedding, normalizeVector, cosineSimilarity } from './embeddings.js';
+import { generateHashEmbedding } from './pineconeClient.js';
 
 const STOP_WORDS = new Set([
   'a', 'about', 'above', 'after', 'again', 'against', 'all', 'am', 'an', 'and', 'any', 'are', 'as', 'at',

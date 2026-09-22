@@ -1,6 +1,6 @@
 import { Pinecone } from '@pinecone-database/pinecone';
-import { Standard } from '../src/types';
-import { getEmbedding, normalizeVector } from './embeddings';
+import { Standard } from '../src/types.js';
+import { getEmbedding, normalizeVector } from './embeddings.js';
 
 let pineconeClient: Pinecone | null = null;
 let isConnected = false;

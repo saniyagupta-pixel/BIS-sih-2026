@@ -1,5 +1,5 @@
 import { MongoClient, Db } from 'mongodb';
-import { RecommendationResponse } from '../src/types';
+import { RecommendationResponse } from '../src/types.js';
 
 let client: MongoClient | null = null;
 let db: Db | null = null;
