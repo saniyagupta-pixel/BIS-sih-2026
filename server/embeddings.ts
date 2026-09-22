@@ -1,5 +1,6 @@
-import { pipeline } from '@xenova/transformers';
+import { pipeline, env } from '@xenova/transformers';
 
+env.cacheDir = '/tmp/transformers-cache';
 let extractor: any = null;
 
 async function getExtractor() {
@@ -66,4 +67,4 @@ export function cosineSimilarity(vecA: number[], vecB: number[]): number {
   // Cosine similarity in range [0, 1] for unit-normalized vectors
   const sim = dotProduct / denominator;
   return Math.max(0, Math.min(1, sim));
-}
+}
