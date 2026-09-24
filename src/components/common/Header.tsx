@@ -39,20 +39,22 @@ export const Header: React.FC<HeaderProps> = ({ activeTab, setActiveTab, onOpenI
       {/* Main Brand Header */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="flex items-start space-x-3 cursor-pointer" onClick={() => setActiveTab('dashboard')}>
-          <div className="p-2.5 bg-blue-700 rounded-lg shadow-inner border border-blue-500">
-            <ShieldCheck className="w-8 h-8 text-white" />
-          </div>
+          <img
+            src="/nsis-logo.svg"
+            alt="National Standards Intelligence System logo"
+            className="w-14 h-14 sm:w-16 sm:h-16 object-contain rounded-lg border border-blue-400/70 bg-slate-950/40 shadow-inner"
+          />
           <div>
             <div className="flex items-center space-x-2">
               <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-white">
-                AI Procurement Standards Assistant
+                National Standards Intelligence System
               </h1>
               <span className="px-2 py-0.5 text-xs font-semibold uppercase rounded bg-blue-800 text-blue-200 border border-blue-600">
-                BIS Engine
+                NSIS
               </span>
             </div>
             <p className="text-xs sm:text-sm text-slate-300 mt-0.5 max-w-2xl">
-              AI-Powered Recommendation Engine for Identifying Applicable Indian Standards for Procurement Specifications
+              AI-powered platform for identifying applicable standards, procurement intelligence, and decision support.
             </p>
           </div>
         </div>
